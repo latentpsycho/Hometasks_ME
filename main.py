@@ -1,10 +1,11 @@
 from enum import Enum
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query, Path
 from pydantic import BaseModel
+from typing import List, Optional
 
 app = FastAPI()
 
-
+# Модели и типы
 class DogType(str, Enum):
     terrier = "terrier"
     bulldog = "bulldog"
@@ -22,6 +23,17 @@ class Timestamp(BaseModel):
     timestamp: int
 
 
+class ValidationError(BaseModel):
+    loc: List[str]
+    msg: str
+    type: str
+
+
+class HTTPValidationError(BaseModel):
+    detail: Optional[List[ValidationError]]
+
+
+# База данных
 dogs_db = {
     0: Dog(name='Bob', pk=0, kind='terrier'),
     1: Dog(name='Marli', pk=1, kind="bulldog"),
@@ -37,6 +49,7 @@ post_db = [
     Timestamp(id=1, timestamp=10)
 ]
 
+
 # Роуты
 @app.get('/')
 def root():
@@ -50,7 +63,7 @@ def get_post():
     raise HTTPException(status_code=404, detail="No posts found")
 
 
-@app.get('/dog', response_model=list[Dog])
+@app.get('/dog', response_model=List[Dog])
 def get_dogs(kind: Optional[DogType] = Query(None)):
     if kind:
         return [dog for dog in dogs_db.values() if dog.kind == kind]
