@@ -20,8 +20,8 @@ Pydantic
 
 # Примеры запросов
 1. Получение списка собак GET/dog
-
-```[
+```
+[
   {
     "name": "Snoopy",
     "pk": 2,
@@ -37,7 +37,36 @@ Pydantic
     "pk": 4,
     "kind": "dalmatian"
   }
-]```
+]
+```
 
-  2. Создание новой собаки POST/dog
+2. Создание новой собаки POST/dog
+```
+{
+  "name": "Richard",
+  "pk": 8,
+  "kind": "terrier"
+}
+```
+3. Поиск данных собаки по номеру GET /dog/{pk}
 
+![image](https://github.com/user-attachments/assets/de654e22-f10b-4a96-a4a2-7bae9de4b04f)
+
+
+4. Обновление данных собаки PATCH /dog/{pk}
+
+```
+{
+  "name": "Richard",
+  "pk": 8,
+  "kind": "dalmatian"
+}
+```
+
+# Результаты работы
+Ссылка на готовый веб сервер:
+(https://hometasks-me.onrender.com/docs#/default/get_dog_by_pk_dog__pk__get)
+
+
+
+ 
