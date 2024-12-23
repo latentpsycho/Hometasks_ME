@@ -50,7 +50,7 @@ def get_post():
     raise HTTPException(status_code=404, detail="No posts found")
 
 
-@app.get('/dog', response_model=List[Dog])
+@app.get('/dog', response_model=list[Dog])
 def get_dogs(kind: Optional[DogType] = Query(None)):
     if kind:
         return [dog for dog in dogs_db.values() if dog.kind == kind]
